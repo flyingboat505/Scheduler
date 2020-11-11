@@ -29,7 +29,8 @@ export class EmployeeComponent implements OnInit {
       name: "",
       position: "",
       location: "",
-      student_id: null
+      student_id: null,
+      dateAndTime: ""
     }
   }
 
@@ -58,6 +59,7 @@ export class EmployeeComponent implements OnInit {
 
   onEdit(emp: Employee) {
     this.employeeService.selectedEmployee = emp;
+    M.toast({ html: 'Edited successfully!', classes: 'rounded' });
   }
 
   onDelete(_id: string, form: NgForm) {

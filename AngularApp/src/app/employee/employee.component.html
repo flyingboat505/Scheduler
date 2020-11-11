@@ -34,6 +34,12 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
+                  <input type="text" name="dateAndTime" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.dateAndTime" placeholder="Insert Date/Time">
+                  <label>dateAndTime :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
                   <button class="btn btn-custom right" type="button" (click)="resetForm(employeeForm)">Reset</button>
                   <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Submit</button>
                 </div>
@@ -48,6 +54,7 @@
                       <th>Position</th>
                       <th>Location</th>
                       <th>Student ID</th>
+                      <th>Date </th>
                       <th></th>
                     </tr>
                   </thead>
@@ -56,6 +63,7 @@
                     <td>{{emp.position}}</td>
                     <td>{{emp.location}}</td>
                     <td>{{emp.student_id}}</td>
+                    <td>{{emp.dateAndTime}}</td>
                     <td>
                         <a class="action-btn" (click)="onEdit(emp)">
                           <i class="material-icons">edit</i>

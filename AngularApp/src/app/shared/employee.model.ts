@@ -4,4 +4,5 @@ export class Employee {
     position: string;
     location: string;
     student_id: number;
+    dateAndTime:string;
 }
