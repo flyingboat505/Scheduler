@@ -124,9 +124,10 @@ export class AppComponent {
     //alert(cur_last_date + " " + cur_last_day + " " + next_last_day); 
 
     let days = "";
-
+    if(cur_last_day != 6){
     for (let index = 0; index <= cur_last_day; index++) {
       days += `<div class="prev-date">${cur_last_date - cur_last_day + index}</div>`;
+    }
     }
     for(let index = 1; index <= next_num_of_dates; index++){
       days += `<div _ngcontent-c0>${index}</div>`; 
