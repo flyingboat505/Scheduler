@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  onAddPost(){
+    alert('ENTER EVENT NAME AND TIME: ')
+  }
+
+  onAddPost2(){
+    alert('ENTER EVENT FOR THE UPCOMING MONTH: ')
+  }
+
+  onAddPost3(){
+    this.newPost = 'The user\'s post';
+  }
 }
+
