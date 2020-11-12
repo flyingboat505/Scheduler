@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-<<<<<<< Updated upstream
-=======
 
  
   prev_month(){
@@ -157,5 +155,4 @@ export class AppComponent {
     alert('Starting ');
     
   }
->>>>>>> Stashed changes
 }
