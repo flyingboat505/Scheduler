@@ -29,6 +29,7 @@ export class EmployeeComponent implements OnInit {
       name: "",
       position: "",
       location: "",
+      dateAndTime:"",
       student_id: null
     }
   }

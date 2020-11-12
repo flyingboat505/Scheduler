@@ -3,5 +3,6 @@ export class Employee {
     name: string;
     position: string;
     location: string;
+    dateAndTime: string;
     student_id: number;
 }

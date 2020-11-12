@@ -17,7 +17,7 @@ export class AppComponent {
   }
 
   onAddPost3(){
-    this.newPost = 'The user\'s post';
+   
   }
 }
 
