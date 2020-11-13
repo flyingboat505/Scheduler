@@ -39,7 +39,8 @@ export class AppComponent {
       const cur_month_year = document.querySelector(".date h1").innerHTML.split(" ");
       const cur_month = months[cur_month_year[0]];
       let cur_year = parseInt(cur_month_year[1]);
-      const monthDays = document.querySelector(".days");
+      //const monthDays = document.querySelector(".days");
+      const monthDays = document.getElementsByClassName("days");
       const day = new Date(
           cur_year,
           cur_month,
@@ -59,6 +60,35 @@ export class AppComponent {
   
       //alert(cur_last_date + " " + cur_last_day + " " + prev_last_day); 
   
+
+      let remain = false;
+    for(let index = 0; index < 42; index++){
+      let day = "";
+      if(remain == true){
+        //alert('Enters this');
+        for(let index_j = cur_last_day + 1; index < 42; index_j++, index++){
+          day = "";
+          day += `<div class="next-date">${index_j - cur_last_day}</div>`; 
+          monthDays[index].innerHTML = day;
+          //alert(index);
+        }
+      }
+      else if(index <= prev_last_day && prev_last_day != 6){
+        day += `<div class="prev-date">${prev_num_of_dates - prev_last_day + index}</div>`;
+        monthDays[index].innerHTML = day;
+      }
+      else {
+        for(let index_j = 1; index_j <= cur_last_date; index_j++, index++){
+          day = "";
+          day += `<div>${index_j}</div>`; 
+          monthDays[index].innerHTML = day;
+        }
+        index--;
+        remain = true;
+      }
+
+    }
+      /*
       let days = "";
       if(prev_last_day != 6){
       for (let index = 0; index <= prev_last_day; index++) {
@@ -71,7 +101,7 @@ export class AppComponent {
       for(let index = cur_last_day + 1; index <= 6; index++){
         days += `<div class="next-date">${index - cur_last_day}</div>`; 
       }
-      monthDays.innerHTML = days;
+      monthDays.innerHTML = days;*/
   }
   next_month(){
     const months = {
@@ -103,7 +133,8 @@ export class AppComponent {
     const cur_month_year = document.querySelector(".date h1").innerHTML.split(" ");
     const cur_month = months[cur_month_year[0]];
     let cur_year = parseInt(cur_month_year[1]);
-    const monthDays = document.querySelector(".days");
+    //const monthDays = document.querySelector(".days");
+    const monthDays = document.getElementsByClassName("days");
     const day = new Date(
         cur_year,
         cur_month+1,
@@ -122,7 +153,34 @@ export class AppComponent {
     const next_num_of_dates = next_day.getDate(), next_last_day = next_day.getDay();
 
     //alert(cur_last_date + " " + cur_last_day + " " + next_last_day); 
+    let remain = false;
+    for(let index = 0; index < 42; index++){
+      let day = "";
+      if(remain == true){
+        //alert('Enters this');
+        for(let index_j = next_last_day + 1; index < 42; index_j++, index++){
+          day = "";
+          day += `<div class="next-date">${index_j - next_last_day}</div>`; 
+          monthDays[index].innerHTML = day;
+          //alert(index);
+        }
+      }
+      else if(index <= cur_last_day && cur_last_day != 6){
+        day += `<div class="prev-date">${cur_last_date - cur_last_day + index}</div>`;
+        monthDays[index].innerHTML = day;
+      }
+      else {
+        for(let index_j = 1; index_j <= next_num_of_dates; index_j++, index++){
+          day = "";
+          day += `<div>${index_j}</div>`; 
+          monthDays[index].innerHTML = day;
+        }
+        index--;
+        remain = true;
+      }
 
+    }
+    /*
     let days = "";
     if(cur_last_day != 6){
     for (let index = 0; index <= cur_last_day; index++) {
@@ -130,12 +188,12 @@ export class AppComponent {
     }
     }
     for(let index = 1; index <= next_num_of_dates; index++){
-      days += `<div _ngcontent-c0>${index}</div>`; 
+      days += `<div>${index}</div>`; 
     }
     for(let index = next_last_day + 1; index <= 6; index++){
       days += `<div class="next-date">${index - next_last_day}</div>`; 
     }
-    monthDays.innerHTML = days;
+    monthDays.innerHTML = days;*/
   }
 
 
