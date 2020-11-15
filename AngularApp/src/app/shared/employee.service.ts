@@ -12,7 +12,7 @@ export class EmployeeService {
   employees: Employee[];
   readonly baseURL = 'http://localhost:3000/employees';
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   postEmployee(emp: Employee) {
     return this.http.post(this.baseURL, emp);
