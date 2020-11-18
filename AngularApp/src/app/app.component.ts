@@ -1,16 +1,25 @@
 import { Component } from '@angular/core';
 import { OnInitCal } from '@angular/core/src/metadata/lifecycle_hooks';
 
+import { EmployeeComponent } from '../app/employee/employee.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInitCal{
+export class AppComponent{
   title = 'app';
 
+
+  //JSON_object =  getJSON_object();
+
   //Initialize Page When Open
+  /*
   ngOnInit() {
+    
+    //alert(JSON.stringify(this.JSON_object));
+
     const months = {
       "January" : 0,
       "February" : 1,
@@ -91,7 +100,7 @@ export class AppComponent implements OnInitCal{
     }
       
   }
- 
+ */
   prev_month(){
       const today = new Date();
       const months = {
