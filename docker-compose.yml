@@ -1,20 +1,18 @@
-version: '3.0' # specify docker-compose version
- 
-# Define the services/ containers to be run
+version: '3.0'
 services:
- angular: # name of the first service
-  build: AngularApp # specify the directory of the Dockerfile
-  ports:
-  - "4200:4200" # specify port mapping
- 
- express: # name of the second service
-  build: NodeJS # specify the directory of the Dockerfile
-  ports:
-  - "3000:3000" #specify ports mapping
-  links:
-  - database # link this service to the database service
- 
- database: # name of the third service
-  image: mongo # specify image to build container from
-  ports:
-  - "27017:27017" # specify port forwarding
+  angular:
+    build: AngularApp
+    image: 649613519621.dkr.ecr.us-west-2.amazonaws.com/scheduler@sha256:8a1cf98e95901e5ec8e553aa3780933d89c8ee1dfd75b9ce9dc32b402620e13c
+    ports:
+      - '4200:4200'
+  express:
+    build: NodeJS
+    image: 649613519621.dkr.ecr.us-west-2.amazonaws.com/scheduler@sha256:049e61d870801ade71e3e6d66b19e1ae3cdac849b24499de295bb891b9ae9f1d
+    ports:
+      - '3000:3000'
+    links:
+      - database
+  database:
+    image: mongo
+    ports:
+      - '27017:27017'
