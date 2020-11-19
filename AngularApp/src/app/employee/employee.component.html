@@ -17,7 +17,8 @@
               <div class="row">
                 <div class="input-field col s12">
                   <input type="text" name="position" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="Eg : Snr. Developer">
-                  <label>Position :</label>
+                  <label>Position :
+                  </label>
                 </div>
               </div>
               <div class="row">
@@ -28,14 +29,20 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="student_id" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.student_id" placeholder=" ID">
-                  <label>Student_id :</label>
+                  <input type="text" name="id" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.id" placeholder=" ID">
+                  <label>Id :</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="dateAndTime" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.dateAndTime" placeholder="Insert Date/Time">
-                  <label>dateAndTime :</label>
+                  <input type="text" name="date" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.date" placeholder="Insert Date/Time">
+                  <label>Date :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="time" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.time" placeholder="Insert Date/Time">
+                  <label>Time :</label>
                 </div>
               </div>
               <div class="row">
@@ -53,8 +60,9 @@
                       <th>Name</th>
                       <th>Position</th>
                       <th>Location</th>
-                      <th>Student ID</th>
+                      <th>ID</th>
                       <th>Date </th>
+                      <th>Time </th>
                       <th></th>
                     </tr>
                   </thead>
@@ -62,8 +70,9 @@
                     <td>{{emp.name}}</td>
                     <td>{{emp.position}}</td>
                     <td>{{emp.location}}</td>
-                    <td>{{emp.student_id}}</td>
-                    <td>{{emp.dateAndTime}}</td>
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.date}}</td>
+                    <td>{{emp.time}}</td>
                     <td>
                         <a class="action-btn" (click)="onEdit(emp)">
                           <i class="material-icons">edit</i>
@@ -81,7 +90,46 @@
   </div>
 
 </div>
-
+<div style = "margin-left: 10px;">
+<div id = "tab_result" class = "container" style = "display: none; align-items: top; background-color : #517191; height:auto; min-height: 700px; float: left; border-radius: 10px">
+  <div class = "exit_tab" (click) = "closetab()">X</div>
+  <div style = "vertical-align: top;">
+    <h5 id = "date_display" style = "text-align: center;"></h5>
+    <div id = "filter" style = "margin-top: 20px">
+    <div class="input-field col s12" style = "width: 40%; margin-left: 20px">
+    <input style = "color: #26a69a" type="text" (keyup)= "GET_query_by_name_text($event)">
+      <label>Name</label>
+    </div>
+    <div class="input-field col s12" style = "width: 40%; margin-left: 20px">
+      <input style = "color: #26a69a" type="text" (keyup)= "GET_query_by_position_text($event)">
+      <label>Position</label>
+      </div>
+   </div>
+    <table style ="vertical-align: top; margin-left: 10px;">
+        <thead> 
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Location</th>
+            <th>ID</th>
+            <th>Date </th>
+            <th>Time </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tr *ngFor="let emp of GET_query_object">
+          <td>{{emp.name}}</td>
+          <td>{{emp.position}}</td>
+          <td>{{emp.location}}</td>
+          <td>{{emp.id}}</td>
+          <td>{{emp.date}}</td>
+          <td>{{emp.time}}</td>
+        </tr>
+      </table>
+      <p id = "Result" style = "text-align: center; margin-top: 10px; font-size: 20px;">No Result</p>
+      <p id = "testp"></p>
+</div>
+</div>
 
 <div class="container">
   <div class="calendar">
@@ -244,4 +292,5 @@
         <div (click)="onAddPost2()" class="next-date">12</div>-->
       </div>
   </div>
+</div>
 </div>

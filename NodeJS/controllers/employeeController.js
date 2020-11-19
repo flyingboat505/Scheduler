@@ -27,8 +27,9 @@ router.post('/', (req, res) => {
         name: req.body.name,
         position: req.body.position,
         location: req.body.location,
-        student_id: req.body.student_id,
-        dateAndTime: req.body.dateAndTime
+        id: req.body.id,
+        date: req.body.date,
+        time: req.body.time
     });
     emp.save((err, doc) => {
         if (!err) { res.send(doc); }
@@ -44,8 +45,9 @@ router.put('/:id', (req, res) => {
         name: req.body.name,
         position: req.body.position,
         location: req.body.location,
-        student_id: req.body.student_id,
-        dateAndTime: req.body.dateAndTime
+        id: req.body.id,
+        date: req.body.date,
+        time: req.body.time
     };
     Employee.findByIdAndUpdate(req.params.id, { $set: emp }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }

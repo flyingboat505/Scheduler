@@ -15,16 +15,9 @@ declare var M: any;
 })
 export class EmployeeComponent implements OnInit {
 
-
-
-  
-  static getJSON_object() {
-    throw new Error('Method not implemented.');
-  }
-
   constructor(private employeeService: EmployeeService) { }
   
-  JSON_object = {};
+  GET_query_object = [];
 
   ngOnInit() {
     this.resetForm();
@@ -40,8 +33,9 @@ export class EmployeeComponent implements OnInit {
       name: "",
       position: "",
       location: "",
-      student_id: null,
-      dateAndTime: ""
+      id: null,
+      date: "",
+      time: ""
     }
   }
 
@@ -65,7 +59,8 @@ export class EmployeeComponent implements OnInit {
   refreshEmployeeList() {
     this.employeeService.getEmployeeList().subscribe((res) => {
       this.employeeService.employees = res as Employee[];
-      this.JSON_object = this.employeeService.employees;
+      //this.JSON_object = this.employeeService.employees;
+      this.GET_query_by_date(this.sel_date)
     });
   }
 
@@ -84,9 +79,15 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  closetab(){
+    document.getElementById("tab_result").style.display = "none";
+  }
 
-  //========================CALENDER FUNCTIONALITY================================= 
+  //========================================================== 
+  //      C A L E N D E R   F U N C T I O N A L I T Y
+  //==========================================================
 
+  sel_date = ""
   months = {
     "January" : 0,
     "February" : 1,
@@ -285,25 +286,43 @@ next_month(){
 
   }
 }
- 
+
+//==========================================================
+//            Q u e r y     L o g i c s
+//==========================================================
+
+GET_query_object_date_storage = [];
+
 GET_query_by_date(DATE){
-  let display = "";
+  if(DATE == ""){
+    return;
+  }
   let result_count = 0;
-  for(let INDEX = 0; INDEX < Object.keys(this.JSON_object).length; INDEX++){
-    //alert(INDEX + ")  " +this.JSON_object[INDEX]["dateAndTime"]);
-      if(this.JSON_object[INDEX]["dateAndTime"] == DATE){
+  this.GET_query_object = [];
+  for(let INDEX = 0; INDEX < Object.keys(this.employeeService.employees).length; INDEX++){
+      if(this.employeeService.employees[INDEX]["date"] == DATE){
         result_count++;
-        display += (result_count).toString();
-        display += "| Name: " + this.JSON_object[INDEX]['name'] 
-        display += " STUDENT ID: " + this.JSON_object[INDEX]['student_id'] 
-        display += " DATE: " + this.JSON_object[INDEX]['dateAndTime'];
-        display += "\n";
+        this.GET_query_object.push(this.employeeService.employees[INDEX]);
       }
   }
+  this.GET_query_object_date_storage = this.GET_query_object.slice()
+  this.GET_query_by_name = this.GET_query_object_date_storage.slice();
+  this.GET_query_by_position = this.GET_query_object_date_storage.slice();
+
+  document.getElementById("Result").style.display = "none";
+  document.getElementById("tab_result").style.display = "block";
   if(result_count == 0){
-    display += "No Result"
+    document.getElementById("Result").style.display = "block";
+
   }
-  alert("DATE: " + DATE + "\nResult: " + result_count + "\n ====================== \n" + display);
+  let print_DATE_pretty = DATE.split("/");
+  const cur_date = new Date(
+    print_DATE_pretty[2],
+    print_DATE_pretty[0]-1,
+    print_DATE_pretty[1]
+  );
+  document.getElementById("date_display").innerHTML = "Date: " + cur_date.toDateString();
+  //alert("DATE: " + DATE + "\nResult: " + result_count + "\n ====================== \n" + display);
 }
 
 GET_input_query(INDEX){
@@ -317,17 +336,83 @@ GET_input_query(INDEX){
     return
   }
   //Extract Number From String: Reference: https://www.geeksforgeeks.org/extract-a-number-from-a-string-using-javascript/ 
-  let cur_day = get_div_day.match(/\d+/g);
+  const cur_day = get_div_day.match(/\d+/g);
   const cur_month_year = document.querySelector(".date h1").innerHTML.split(" ");
  
   
   const DATE = ((this.months[cur_month_year[0]]+1) + '/' + cur_day + '/' + cur_month_year[1]).toString();
+  this.sel_date = DATE
   //alert(DATE);
   this.GET_query_by_date(DATE);
 
 }
 
-onAddPost(){
-  alert('ENTER EVENT NAME AND TIME: ')
+GET_query_by_name = [];
+GET_query_by_position = [];
+
+GET_query_by_name_text(event : any){
+  let name_input =  event.target.value; 
+
+  if(name_input.length < 2){
+    this.GET_query_by_name = this.GET_query_object_date_storage.slice();  
+  }
+  else{
+    this.GET_query_by_name = [];
+    for(let INDEX = 0; INDEX < this.GET_query_object_date_storage.length; INDEX++){
+      if(this.GET_query_object_date_storage[INDEX]['name'].toLowerCase().includes(name_input.toLowerCase())){
+        this.GET_query_by_name.push(this.GET_query_object_date_storage[INDEX])
+      }
+    }
+  }
+  //document.getElementById("testp").innerHTML = JSON.stringify(this.GET_query_by_name,null,2);
+  this.GET_query_by_join_position_name();
+}
+GET_query_by_position_text(event : any){
+  let position_input =  event.target.value; 
+
+  if(position_input.length < 2){
+    this.GET_query_by_position = this.GET_query_object_date_storage.slice();  
+  }
+  else {
+    this.GET_query_by_position = [];
+    for(let INDEX = 0; INDEX < this.GET_query_object_date_storage.length; INDEX++){
+      if(this.GET_query_object_date_storage[INDEX]['position'].toLowerCase().includes(position_input.toLowerCase())){
+        this.GET_query_by_position.push(this.GET_query_object_date_storage[INDEX])
+      }
+    }
+  }
+  //document.getElementById("testp").innerHTML = JSON.stringify(this.GET_query_by_position,null,2);
+  this.GET_query_by_join_position_name();
+}
+
+GET_query_by_join_position_name(){
+  let result_count = 0;
+  let is_name_table_size_less = (this.GET_query_by_name.length < this.GET_query_by_position.length)
+  let length = is_name_table_size_less ? this.GET_query_by_name.length : this.GET_query_by_position.length;
+  this.GET_query_object = [];
+  for(let INDEX = 0; INDEX < length; INDEX++){
+    if(is_name_table_size_less){
+      for(let INDEX_j = 0; INDEX_j < this.GET_query_by_position.length; INDEX_j++){
+        if(this.GET_query_by_name[INDEX]["_id"] == this.GET_query_by_position[INDEX_j]["_id"]){
+          this.GET_query_object.push(this.GET_query_by_name[INDEX])
+          result_count++;
+          break;
+        }
+      }
+    } 
+    else{
+      for(let INDEX_j = 0; INDEX_j < this.GET_query_by_name.length; INDEX_j++){
+        if(this.GET_query_by_position[INDEX]["_id"] == this.GET_query_by_name[INDEX_j]["_id"]){
+          this.GET_query_object.push(this.GET_query_by_position[INDEX])
+          result_count++;
+          break;
+        }
+      }
+    }
+  }
+  document.getElementById("Result").style.display = "none";
+  if(result_count == 0){
+    document.getElementById("Result").style.display = "block";
+  }
 }
 }

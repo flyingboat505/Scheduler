@@ -4,8 +4,9 @@ var Employee = mongoose.model('Employee', {
     name: { type: String },
     position: { type: String },
     location: { type: String },
-    student_id: { type: Number },
-    dateAndTime: { type: String }
+    id: { type: Number },
+    date: { type: String },
+    time: { type: String }
 });
 
 module.exports = { Employee };
