@@ -1,4 +1,4 @@
-export class Employee {
+export class Personal {
     _id: string;
     name: string;
     position: string;

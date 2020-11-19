@@ -4,29 +4,30 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import { Employee } from './employee.model';
+import { Personal } from './personal.model';
 
 @Injectable()
-export class EmployeeService {
-  selectedEmployee: Employee;
-  employees: Employee[];
-  readonly baseURL = 'http://localhost:3000/employees';
+export class PersonalService {
+  selectedPersonal: Personal;
+  personals: Personal[];
+  readonly baseURL = 'http://localhost:3000/personals';
 
   constructor(private http: HttpClient) { }
 
-  postEmployee(emp: Employee) {
+  postPersonal(emp: Personal) {
     return this.http.post(this.baseURL, emp);
   }
 
-  getEmployeeList() {
+  getPersonalList() {
     return this.http.get(this.baseURL);
   }
 
-  putEmployee(emp: Employee) {
+  putPersonal(emp: Personal) {
     return this.http.put(this.baseURL + `/${emp._id}`, emp);
   }
 
-  deleteEmployee(_id: string) {
+
+  deletePersonal(_id: string) {
     return this.http.delete(this.baseURL + `/${_id}`);
   }
 

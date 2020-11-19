@@ -1,34 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { EmployeeService } from '../shared/employee.service';
-import { Employee } from '../shared/employee.model';
+import { PersonalService } from '../shared/personal.service';
+import { Personal } from '../shared/personal.model';
 import { jsonpFactory } from '@angular/http/src/http_module';
 
 declare var M: any;
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css'],
-  providers: [EmployeeService]
+  selector: 'app-personal',
+  templateUrl: './personal.component.html',
+  styleUrls: ['./personal.component.css'],
+  providers: [PersonalService]
 })
-export class EmployeeComponent implements OnInit {
+export class PersonalComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private personalService: PersonalService) { }
   
   GET_query_object = [];
 
   ngOnInit() {
     this.resetForm();
-    this.refreshEmployeeList();
+    this.refreshPersonalList();
     this.calendar_init();
   }
 
   resetForm(form?: NgForm) {
     if (form)
       form.reset();
-    this.employeeService.selectedEmployee = {
+    this.personalService.selectedPersonal = {
       _id: "",
       name: "",
       position: "",
@@ -41,38 +41,39 @@ export class EmployeeComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.value._id == "") {
-      this.employeeService.postEmployee(form.value).subscribe((res) => {
+      this.personalService.postPersonal(form.value).subscribe((res) => {
         this.resetForm(form);
-        this.refreshEmployeeList();
+        this.refreshPersonalList();
         M.toast({ html: 'Saved successfully', classes: 'rounded' });
       });
     }
     else {
-      this.employeeService.putEmployee(form.value).subscribe((res) => {
+      this.personalService.putPersonal(form.value).subscribe((res) => {
         this.resetForm(form);
-        this.refreshEmployeeList();
+        this.refreshPersonalList();
         M.toast({ html: 'Updated successfully', classes: 'rounded' });
       });
     }
   }
 
-  refreshEmployeeList() {
-    this.employeeService.getEmployeeList().subscribe((res) => {
-      this.employeeService.employees = res as Employee[];
+  refreshPersonalList() {
+    let test = {"date" : "11/17/2020"};
+    this.personalService.getPersonalList().subscribe((res) => {
+      this.personalService.personals = res as Personal[];
       //this.JSON_object = this.employeeService.employees;
       this.GET_query_by_date(this.sel_date)
     });
   }
 
-  onEdit(emp: Employee) {
-    this.employeeService.selectedEmployee = emp;
+  onEdit(emp: Personal) {
+    this.personalService.selectedPersonal = emp;
     M.toast({ html: 'Edited successfully!', classes: 'rounded' });
   }
 
   onDelete(_id: string, form: NgForm) {
     if (confirm('Are you sure to delete this record ?') == true) {
-      this.employeeService.deleteEmployee(_id).subscribe((res) => {
-        this.refreshEmployeeList();
+      this.personalService.deletePersonal(_id).subscribe((res) => {
+        this.refreshPersonalList();
         this.resetForm(form);
         M.toast({ html: 'Deleted successfully', classes: 'rounded' });
       });
@@ -299,10 +300,10 @@ GET_query_by_date(DATE){
   }
   let result_count = 0;
   this.GET_query_object = [];
-  for(let INDEX = 0; INDEX < Object.keys(this.employeeService.employees).length; INDEX++){
-      if(this.employeeService.employees[INDEX]["date"] == DATE){
+  for(let INDEX = 0; INDEX < Object.keys(this.personalService.personals).length; INDEX++){
+      if(this.personalService.personals[INDEX]["date"] == DATE){
         result_count++;
-        this.GET_query_object.push(this.employeeService.employees[INDEX]);
+        this.GET_query_object.push(this.personalService.personals[INDEX]);
       }
   }
   this.GET_query_object_date_storage = this.GET_query_object.slice()

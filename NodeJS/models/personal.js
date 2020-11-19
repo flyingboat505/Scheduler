@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var Employee = mongoose.model('Employee', {
+var Personal = mongoose.model('Personal', {
     name: { type: String },
     position: { type: String },
     location: { type: String },
@@ -9,4 +9,4 @@ var Employee = mongoose.model('Employee', {
     time: { type: String }
 });
 
-module.exports = { Employee };
+module.exports = { Personal };

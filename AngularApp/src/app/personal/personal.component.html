@@ -4,11 +4,11 @@
       <div class="card-content white-text">
         <div class="row">
           <div class="col s5">
-            <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
-              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+            <form #personalForm="ngForm" (ngSubmit)="onSubmit(personalForm)">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="personalService.selectedPersonal._id">
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" placeholder="Enter full name" required>
+                  <input type="text" name="name" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.name" placeholder="Enter full name" required>
                   <label>Name :
                     <label class="red-text">*</label>
                   </label>
@@ -16,39 +16,39 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="position" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="Eg : Snr. Developer">
+                  <input type="text" name="position" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.position" placeholder="Eg : Snr. Developer">
                   <label>Position :
                   </label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="location" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.location" placeholder="Enter location">
+                  <input type="text" name="location" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.location" placeholder="Enter location">
                   <label>Location :</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="id" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.id" placeholder=" ID">
+                  <input type="text" name="id" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.id" placeholder=" ID">
                   <label>Id :</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="date" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.date" placeholder="Insert Date/Time">
+                  <input type="text" name="date" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.date" placeholder="Insert Date/Time">
                   <label>Date :</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input type="text" name="time" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.time" placeholder="Insert Date/Time">
+                  <input type="text" name="time" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.time" placeholder="Insert Date/Time">
                   <label>Time :</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <button class="btn btn-custom right" type="button" (click)="resetForm(employeeForm)">Reset</button>
-                  <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Submit</button>
+                  <button class="btn btn-custom right" type="button" (click)="resetForm(personalForm)">Reset</button>
+                  <button class="btn btn-custom right" type="submit" [disabled]="!personalForm.valid">Submit</button>
                 </div>
               </div>
             </form>
@@ -66,7 +66,7 @@
                       <th></th>
                     </tr>
                   </thead>
-                  <tr *ngFor="let emp of employeeService.employees">
+                  <tr *ngFor="let emp of personalService.personals">
                     <td>{{emp.name}}</td>
                     <td>{{emp.position}}</td>
                     <td>{{emp.location}}</td>
@@ -77,7 +77,7 @@
                         <a class="action-btn" (click)="onEdit(emp)">
                           <i class="material-icons">edit</i>
                         </a>
-                        <a class="action-btn" (click)="onDelete(emp._id,employeeForm)">
+                        <a class="action-btn" (click)="onDelete(emp._id,personalForm)">
                           <i class="material-icons">delete</i>
                         </a>
                       </td>
