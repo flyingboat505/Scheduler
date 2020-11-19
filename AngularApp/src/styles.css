@@ -103,7 +103,7 @@ a.action-btn:hover{
   }
 
   .container {
-    width: 100%;
+    width: 50%;
 
     background-color: #b3b7bb;
     color: #eee;
@@ -193,11 +193,16 @@ a.action-btn:hover{
 
   }
   
+  .days div:hover{
+    cursor: pointer;
+    background-color: rgb(35, 49, 63);
+  }
+
   .days div:hover:not(.today) {
     background-color: #517191;
     border: 0.2rem solid #777;
-    cursor: pointer;
   }
+
 
   .prev-date,
   .next-date {
@@ -205,7 +210,8 @@ a.action-btn:hover{
   }
 
   .today {
-    background-color: #4a8567;
+    background-color: #3e566d;
+    border: 0.2rem solid rgb(122, 122, 122);
   }
 
 
@@ -227,4 +233,40 @@ a.action-btn:hover{
   align-items: center;
   text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
   transition: background-color 0.2s;
+}
+
+
+#month_click:hover{
+  color: #acbbca;
+  cursor: pointer;
+}
+
+.exit_tab{
+  float: right;
+  text-align: center; 
+  height: 30px;
+  width: 30px;
+  margin: 20px; 
+  font-size: 20px;
+  border-radius: 50%;
+  border-style: solid;
+}
+
+.exit_tab:hover{
+  cursor:pointer;
+  border-color: #26a69a;
+  color: #26a69a;
+}
+
+footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  background-color: #517191;
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  font-size: 15px;
+  color:  white;
 }

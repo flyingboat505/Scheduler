@@ -1,0 +1,296 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content white-text">
+        <div class="row">
+          <div class="col s5">
+            <form #personalForm="ngForm" (ngSubmit)="onSubmit(personalForm)">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="personalService.selectedPersonal._id">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="name" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.name" placeholder="Enter full name" required>
+                  <label>Name :
+                    <label class="red-text">*</label>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="position" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.position" placeholder="Eg : Snr. Developer">
+                  <label>Position :
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="location" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.location" placeholder="Enter location">
+                  <label>Location :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="id" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.id" placeholder=" ID">
+                  <label>Id :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="date" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.date" placeholder="Insert Date/Time">
+                  <label>Date :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="time" #name="ngModel" [(ngModel)]="personalService.selectedPersonal.time" placeholder="Insert Date/Time">
+                  <label>Time :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="btn btn-custom right" type="button" (click)="resetForm(personalForm)">Reset</button>
+                  <button class="btn btn-custom right" type="submit" [disabled]="!personalForm.valid">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col s7">
+              <table class="responsive-table highlight">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Location</th>
+                      <th>ID</th>
+                      <th>Date </th>
+                      <th>Time </th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let emp of personalService.personals">
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.position}}</td>
+                    <td>{{emp.location}}</td>
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.date}}</td>
+                    <td>{{emp.time}}</td>
+                    <td>
+                        <a class="action-btn" (click)="onEdit(emp)">
+                          <i class="material-icons">edit</i>
+                        </a>
+                        <a class="action-btn" (click)="onDelete(emp._id,personalForm)">
+                          <i class="material-icons">delete</i>
+                        </a>
+                      </td>
+                  </tr>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div style = "margin-left: 10px;">
+<div id = "tab_result" class = "container" style = "display: none; align-items: top; background-color : #517191; height:auto; min-height: 700px; float: left; border-radius: 10px">
+  <div class = "exit_tab" (click) = "closetab()">X</div>
+  <div style = "vertical-align: top;">
+    <h5 id = "date_display" style = "text-align: center;"></h5>
+    <div id = "filter" style = "margin-top: 20px">
+    <div class="input-field col s12" style = "width: 40%; margin-left: 20px">
+    <input style = "color: #26a69a" type="text" (keyup)= "GET_query_by_name_text($event)">
+      <label>Name</label>
+    </div>
+    <div class="input-field col s12" style = "width: 40%; margin-left: 20px">
+      <input style = "color: #26a69a" type="text" (keyup)= "GET_query_by_position_text($event)">
+      <label>Position</label>
+      </div>
+   </div>
+    <table style ="vertical-align: top; margin-left: 10px;">
+        <thead> 
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Location</th>
+            <th>ID</th>
+            <th>Date </th>
+            <th>Time </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tr *ngFor="let emp of GET_query_object">
+          <td>{{emp.name}}</td>
+          <td>{{emp.position}}</td>
+          <td>{{emp.location}}</td>
+          <td>{{emp.id}}</td>
+          <td>{{emp.date}}</td>
+          <td>{{emp.time}}</td>
+        </tr>
+      </table>
+      <p id = "Result" style = "text-align: center; margin-top: 10px; font-size: 20px;">No Result</p>
+      <p id = "testp"></p>
+</div>
+</div>
+
+<div class="container">
+  <div class="calendar">
+      <div class="month">
+        <div id = "month_click" (click) = "prev_month()"> <h3>&ensp;&#60;</h3> </div>
+          <i class="fas fa-angle-left prev"></i>
+          <div class="date">
+              <h1>November 2020</h1> 
+              <p>Wed November 11, 2020</p>
+          </div>
+          <i class="fas fa-angle-right next"></i>
+          <div id = "month_click" (click) = "next_month()"> <h3>>&ensp;</h3> </div>
+        </div>
+      <div class="weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tues</div>
+          <div>Wed</div>
+          <div>Thurs</div>
+          <div>Fri</div>
+          <div>Sat</div>
+      </div>
+
+      <div class = "days_gen">
+        <div (click)="GET_input_query(0)" class="days"> 
+          <div>1</div>
+        </div>
+        <div (click)="GET_input_query(1)" class="days"> 
+          <div>2</div>
+        </div>
+        <div (click)="GET_input_query(2)" class="days"> 
+          <div>3</div>
+        </div>
+        <div (click)="GET_input_query(3)" class="days"> 
+          <div>4</div>
+        </div>
+        <div (click)="GET_input_query(4)" class="days"> 
+          <div>5</div>
+        </div>
+        <div (click)="GET_input_query(5)" class="days"> 
+          <div>6</div>
+        </div>
+        <div (click)="GET_input_query(6)" class="days"> 
+          <div>7</div>
+        </div>
+        <div (click)="GET_input_query(7)" class="days"> 
+          <div>8</div>
+        </div>
+        <div (click)="GET_input_query(8)" class="days"> 
+          <div>9</div>
+        </div>
+        <div (click)="GET_input_query(9)" class="days"> 
+          <div>10</div>
+        </div>
+        <div (click)="GET_input_query(10)" class="days"> 
+          <div>11</div>
+        </div>
+        <div (click)="GET_input_query(11)" class="days"> 
+          <div>12</div>
+        </div>
+        <div (click)="GET_input_query(12)" class="days"> 
+          <div>13</div>
+        </div>
+        <div (click)="GET_input_query(13)" class="days"> 
+          <div>14</div>
+        </div>
+        <div (click)="GET_input_query(14)" class="days"> 
+          <div>15</div>
+        </div>
+        <div (click)="GET_input_query(15)" class="days"> 
+          <div>16</div>
+        </div>
+        <div (click)="GET_input_query(16)" class="days"> 
+          <div>17</div>
+        </div>
+        <div (click)="GET_input_query(17)" class="days"> 
+          <div>18</div>
+        </div>
+        <div (click)="GET_input_query(18)" class="days"> 
+          <div>19</div>
+        </div>
+        <div (click)="GET_input_query(19)" class="days"> 
+          <div>20</div>
+        </div>
+        <div (click)="GET_input_query(20)" class="days"> 
+          <div>21</div>
+        </div>
+        <div (click)="GET_input_query(21)" class="days"> 
+          <div>22</div>
+        </div>
+        <div (click)="GET_input_query(22)" class="days"> 
+          <div>23</div>
+        </div>
+        <div (click)="GET_input_query(23)" class="days"> 
+          <div>24</div>
+        </div>
+        <div (click)="GET_input_query(24)" class="days"> 
+          <div>25</div>
+        </div>
+        <div (click)="GET_input_query(25)" class="days"> 
+          <div>26</div>
+        </div>
+        <div (click)="GET_input_query(26)" class="days"> 
+          <div>27</div>
+        </div>
+        <div (click)="GET_input_query(27)" class="days"> 
+          <div>28</div>
+        </div>
+        <div (click)="GET_input_query(28)" class="days"> 
+          <div>29</div>
+        </div>
+        <div (click)="GET_input_query(29)" class="days"> 
+          <div>30</div>
+        </div>
+        <div (click)="GET_input_query(30)" class="days"> 
+          <div class="next-date">1</div>
+        </div>
+        <div (click)="GET_input_query(31)" class="days"> 
+          <div class="next-date">2</div>
+        </div>
+        <div (click)="GET_input_query(32)" class="days"> 
+          <div class="next-date">3</div>
+        </div>
+        <div (click)="GET_input_query(33)" class="days"> 
+          <div class="next-date">4</div>
+        </div>
+        <div (click)="GET_input_query(34)" class="days"> 
+          <div class="next-date">5</div>
+        </div>
+        <div (click)="GET_input_query(35)" class="days"> 
+          <div class="next-date">6</div>
+        </div>
+        <div (click)="GET_input_query(36)" class="days"> 
+          <div class="next-date">7</div>
+        </div>
+        <div (click)="GET_input_query(37)" class="days"> 
+          <div class="next-date">8</div>
+        </div>
+        <div (click)="GET_input_query(38)" class="days"> 
+          <div class="next-date">9</div>
+        </div>
+        <div (click)="GET_input_query(39)" class="days"> 
+          <div class="next-date">10</div>
+        </div>
+        <div (click)="GET_input_query(40)" class="days"> 
+          <div class="next-date">11</div>
+        </div>
+        <div (click)="GET_input_query(41)" class="days"> 
+          <div class="next-date">12</div>
+        </div>
+       <!--<div (click)="onAddPost2()" class="next-date">3</div>
+        <div (click)="onAddPost2()" class="next-date">4</div>
+        <div (click)="onAddPost2()" class="next-date">5</div>
+        <div (click)="onAddPost2()" class="next-date">6</div>
+        <div (click)="onAddPost2()" class="next-date">7</div>
+        <div (click)="onAddPost2()" class="next-date">8</div>
+        <div (click)="onAddPost2()" class="next-date">9</div>
+        <div (click)="onAddPost2()" class="next-date">10</div>
+        <div (click)="onAddPost2()" class="next-date">11</div>
+        <div (click)="onAddPost2()" class="next-date">12</div>-->
+      </div>
+  </div>
+</div>
+</div>
