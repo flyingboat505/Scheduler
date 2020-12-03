@@ -1,8 +1,6 @@
 # Scheduler project
 This projects uses the MEAN stack application to run and deploy a appointment scheduler maker.
 
-We removed the MongoDb link to avoid hackers from accessing our MongoDb cluster
-
 ### Prerequisites
 1. Express Js
 2. MongoDb
