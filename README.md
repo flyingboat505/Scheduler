@@ -6,6 +6,8 @@ This projects uses the MEAN stack application to run and deploy an appointment s
 2. MongoDb
 3. Angular
 4. NodeJS
+5. Docker
+6. AWS ECR,ECS
 
 ## To run this project locally
 1. run npm install, then npm start in the angular folder
