@@ -1,5 +1,5 @@
 # Scheduler project
-This projects uses the MEAN stack application to run and deploy a appointment scheduler maker.
+This projects uses the MEAN stack application to run and deploy an appointment scheduler maker.
 
 ### Prerequisites
 1. Express Js
