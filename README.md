@@ -11,7 +11,7 @@ This projects uses the MEAN stack application to run and deploy an appointment s
 1. run npm install, then npm start in the angular folder
 2. run node db.js and node index.js in the NodeJS folder
 
-## To run this project on through AWS 
+## To run this project on through AWS/Docker
 1. Follow this guide https://docs.docker.com/engine/context/ecs-integration/
 
 ## Demo/Presentation
