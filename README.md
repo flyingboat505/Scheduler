@@ -3,7 +3,7 @@ This projects uses the MEAN stack application to run and deploy a appointment sc
 
 We removed the MongoDb link to avoid hackers from accessing our MongoDb cluster
 
-### Prereqs
+### Prerequisites
 1. Express Js
 2. MongoDb
 3. Angular
